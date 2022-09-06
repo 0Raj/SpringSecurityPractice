@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -21,6 +22,7 @@ import static com.example.demo.RoleSercurity.SpringSecurityAuthorities.*;
 
 @Configuration
 @EnableWebSecurity
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class MySpringConfig extends WebSecurityConfigurerAdapter {
 
 
@@ -47,10 +49,10 @@ public class MySpringConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/","index","/css/*","/js/*").permitAll()
                 .antMatchers("/api/student/**").hasRole(ADMIN.toString())
-                .antMatchers(HttpMethod.GET,"/admin/api/student/**").hasAnyRole(ADMIN.toString(),ADMIN_TRAINEE.toString())
-                .antMatchers(HttpMethod.PUT,"/admin/api/student/**").hasAuthority(ADMIN_WRITE.getSpringSecurityAuthorities())
-                .antMatchers(HttpMethod.POST,"/admin/api/student/**").hasAuthority(ADMIN_WRITE.getSpringSecurityAuthorities())
-                .antMatchers(HttpMethod.DELETE,"/admin/api/student/**").hasAuthority(ADMIN_WRITE.getSpringSecurityAuthorities())
+//                .antMatchers(HttpMethod.GET,"/admin/api/student/**").hasAnyRole(ADMIN.toString(),ADMIN_TRAINEE.toString())
+//                .antMatchers(HttpMethod.PUT,"/admin/api/student/**").hasAuthority(ADMIN_WRITE.getSpringSecurityAuthorities())
+//                .antMatchers(HttpMethod.POST,"/admin/api/student/**").hasAuthority(ADMIN_WRITE.getSpringSecurityAuthorities())
+//                .antMatchers(HttpMethod.DELETE,"/admin/api/student/**").hasAuthority(ADMIN_WRITE.getSpringSecurityAuthorities())
                 .anyRequest()
                 .authenticated()
                 .and()
